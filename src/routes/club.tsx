@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, GraduationCap, HeartHandshake, Medal, MapPin } from "lucide-react";
 
-import trainingImg from "@/assets/club-training.jpg";
+import teamImg from "@/assets/equipo-shuttle-pozuelo.jpg.asset.json";
 import { Button } from "@/components/ui/button";
 import { CLUB_LOCATION, TRAINING_DAYS_COUNT } from "@/lib/club-data";
 
@@ -104,10 +104,10 @@ function ClubPage() {
             </Button>
           </div>
           <img
-            src={trainingImg}
-            alt="Grupo del club durante un entrenamiento"
-            width={1280}
-            height={960}
+            src={teamImg.url}
+            alt="Jugadores del club posando con la bandera de Shuttle Pozuelo"
+            width={1920}
+            height={1440}
             loading="lazy"
             className="aspect-[4/3] w-full rounded-lg object-cover shadow-card"
           />
