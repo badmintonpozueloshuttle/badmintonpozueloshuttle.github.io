@@ -117,8 +117,7 @@ function Index() {
         />
         <div>
           <p className="eyebrow text-primary">Nuestros grupos</p>
-          <h2 className="mt-3 text-4xl">Encuentra tu grupo</h2>
-          <Button asChild variant="link" className="mt-6 px-0 text-base font-semibold uppercase tracking-wider">
+          <Button asChild variant="link" className="mt-3 px-0 text-base font-semibold uppercase tracking-wider">
             <Link to="/horarios">
               Consulta los horarios <ArrowRight />
             </Link>
