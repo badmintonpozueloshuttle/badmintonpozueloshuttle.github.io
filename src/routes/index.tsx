@@ -38,7 +38,7 @@ const FEATURES = [
   {
     icon: CalendarClock,
     title: "Horarios de entrenamiento",
-    text: "Sesiones entre semana y los sábados, con entrenadores titulados.",
+    text: "Entrenamientos de lunes a jueves en IES Camilo José Cela y San Luis de los Franceses.",
     to: "/horarios" as const,
     cta: "Ver horarios",
   },

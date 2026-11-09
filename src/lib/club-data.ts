@@ -6,8 +6,6 @@ export type TrainingGroup = {
   name: string;
   audience: string;
   level: string;
-  sessions: { day: string; time: string }[];
-  venue: string;
 };
 
 export const TRAINING_GROUPS: TrainingGroup[] = [
@@ -16,50 +14,50 @@ export const TRAINING_GROUPS: TrainingGroup[] = [
     name: "Escuela infantil",
     audience: "6 a 11 años",
     level: "Iniciación",
-    sessions: [
-      { day: "Lunes", time: "17:30 – 18:30" },
-      { day: "Miércoles", time: "17:30 – 18:30" },
-    ],
-    venue: "Pista 1 y 2",
   },
   {
     id: "juvenil",
     name: "Juvenil",
     audience: "12 a 17 años",
     level: "Iniciación y perfeccionamiento",
-    sessions: [
-      { day: "Lunes", time: "18:30 – 20:00" },
-      { day: "Miércoles", time: "18:30 – 20:00" },
-      { day: "Viernes", time: "17:30 – 19:00" },
-    ],
-    venue: "Pista 1 a 4",
   },
   {
     id: "adultos",
     name: "Adultos",
     audience: "Mayores de 18",
     level: "Iniciación e intermedio",
-    sessions: [
-      { day: "Martes", time: "20:00 – 21:30" },
-      { day: "Jueves", time: "20:00 – 21:30" },
-    ],
-    venue: "Pista 1 a 4",
   },
   {
     id: "competicion",
     name: "Competición",
     audience: "Jugadores federados",
     level: "Avanzado",
-    sessions: [
-      { day: "Martes", time: "18:30 – 20:00" },
-      { day: "Jueves", time: "18:30 – 20:00" },
-      { day: "Sábado", time: "10:00 – 12:00" },
-    ],
-    venue: "Pista central",
   },
 ];
 
-export const WEEK_DAYS = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"] as const;
+export const WEEK_DAYS = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"] as const;
+
+export type WeekDay = (typeof WEEK_DAYS)[number];
+
+export const VENUES = {
+  camiloJoseCela: "IES Camilo José Cela",
+  sanLuis: "San Luis de los Franceses",
+} as const;
+
+export type TrainingSession = { day: WeekDay; start: string; end: string; venue: string };
+
+/** Official weekly schedule supplied by the club. */
+export const WEEKLY_SESSIONS: TrainingSession[] = [
+  { day: "Lunes", start: "20:00", end: "21:30", venue: VENUES.sanLuis },
+  { day: "Martes", start: "16:00", end: "17:30", venue: VENUES.camiloJoseCela },
+  { day: "Martes", start: "17:30", end: "19:00", venue: VENUES.camiloJoseCela },
+  { day: "Miércoles", start: "20:00", end: "21:30", venue: VENUES.sanLuis },
+  { day: "Jueves", start: "16:00", end: "17:30", venue: VENUES.camiloJoseCela },
+  { day: "Jueves", start: "17:30", end: "19:00", venue: VENUES.camiloJoseCela },
+  { day: "Jueves", start: "20:30", end: "22:00", venue: VENUES.sanLuis },
+];
+
+export const TRAINING_DAYS_COUNT = new Set(WEEKLY_SESSIONS.map((s) => s.day)).size;
 
 export const LEVEL_OPTIONS = [
   "Nunca he jugado",

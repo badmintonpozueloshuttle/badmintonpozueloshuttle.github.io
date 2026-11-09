@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Clock, MapPin } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { TRAINING_GROUPS, WEEK_DAYS } from "@/lib/club-data";
+import { TRAINING_GROUPS, WEEK_DAYS, WEEKLY_SESSIONS } from "@/lib/club-data";
 
 export const Route = createFileRoute("/horarios")({
   head: () => ({
@@ -41,11 +41,11 @@ function HorariosPage() {
 
       <section className="mx-auto max-w-6xl px-5 py-16">
         <h2 className="text-3xl">Semana tipo</h2>
-        <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-6">
+        <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
           {WEEK_DAYS.map((day) => {
-            const sessions = TRAINING_GROUPS.flatMap((g) =>
-              g.sessions.filter((s) => s.day === day).map((s) => ({ group: g, time: s.time })),
-            ).sort((a, b) => a.time.localeCompare(b.time));
+            const sessions = WEEKLY_SESSIONS.filter((s) => s.day === day).sort((a, b) =>
+              a.start.localeCompare(b.start),
+            );
             return (
               <div key={day} className="rounded-lg border bg-card p-4 shadow-card">
                 <p className="font-display uppercase text-primary">{day}</p>
@@ -53,10 +53,14 @@ function HorariosPage() {
                   {sessions.length === 0 && (
                     <li className="text-sm text-muted-foreground">Sin entrenamientos</li>
                   )}
-                  {sessions.map(({ group, time }) => (
-                    <li key={group.id} className="rounded-md bg-secondary px-3 py-2">
-                      <p className="text-sm font-semibold text-secondary-foreground">{group.name}</p>
-                      <p className="text-sm text-muted-foreground">{time}</p>
+                  {sessions.map((s) => (
+                    <li key={s.start} className="rounded-md bg-secondary px-3 py-2">
+                      <p className="flex items-center gap-1.5 font-semibold text-secondary-foreground">
+                        <Clock className="h-4 w-4 text-primary" /> {s.start} – {s.end}
+                      </p>
+                      <p className="mt-0.5 flex items-start gap-1.5 text-sm text-muted-foreground">
+                        <MapPin className="mt-0.5 h-3.5 w-3.5 shrink-0 text-primary" /> {s.venue}
+                      </p>
                     </li>
                   ))}
                 </ul>
@@ -69,31 +73,17 @@ function HorariosPage() {
       <section className="bg-muted">
         <div className="mx-auto max-w-6xl px-5 py-16">
           <h2 className="text-3xl">Grupos</h2>
-          <div className="mt-8 grid gap-5 md:grid-cols-2">
+          <p className="mt-3 max-w-2xl text-muted-foreground">
+            Escríbenos y te diremos qué horario encaja con tu edad y tu nivel.
+          </p>
+          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {TRAINING_GROUPS.map((g) => (
-              <article key={g.id} className="rounded-lg border bg-card p-7 shadow-card">
-                <div className="flex flex-wrap items-start justify-between gap-3">
-                  <div>
-                    <h3 className="text-2xl">{g.name}</h3>
-                    <p className="mt-1 text-muted-foreground">{g.audience}</p>
-                  </div>
-                  <span className="rounded-md bg-accent px-3 py-1 text-xs font-semibold uppercase tracking-wider text-accent-foreground">
-                    {g.level}
-                  </span>
-                </div>
-                <ul className="mt-6 divide-y border-y">
-                  {g.sessions.map((s) => (
-                    <li key={s.day} className="flex items-center justify-between py-3">
-                      <span className="font-semibold">{s.day}</span>
-                      <span className="flex items-center gap-1.5 text-muted-foreground">
-                        <Clock className="h-4 w-4 text-primary" /> {s.time}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-                <p className="mt-4 flex items-center gap-1.5 text-sm text-muted-foreground">
-                  <MapPin className="h-4 w-4 text-primary" /> {g.venue}
-                </p>
+              <article key={g.id} className="rounded-lg border bg-card p-6 shadow-card">
+                <h3 className="text-xl">{g.name}</h3>
+                <p className="mt-1 text-muted-foreground">{g.audience}</p>
+                <span className="mt-4 inline-block rounded-md bg-accent px-3 py-1 text-xs font-semibold uppercase tracking-wider text-accent-foreground">
+                  {g.level}
+                </span>
               </article>
             ))}
           </div>

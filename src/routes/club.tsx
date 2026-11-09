@@ -3,7 +3,7 @@ import { ArrowRight, GraduationCap, HeartHandshake, Medal, MapPin } from "lucide
 
 import trainingImg from "@/assets/club-training.jpg";
 import { Button } from "@/components/ui/button";
-import { CLUB_LOCATION } from "@/lib/club-data";
+import { CLUB_LOCATION, TRAINING_DAYS_COUNT } from "@/lib/club-data";
 
 export const Route = createFileRoute("/club")({
   head: () => ({
@@ -47,7 +47,7 @@ const VALUES = [
 const STATS = [
   { value: "4", label: "Grupos de entrenamiento" },
   { value: "6+", label: "Años de edad mínima" },
-  { value: "6", label: "Días de actividad" },
+  { value: String(TRAINING_DAYS_COUNT), label: "Días de entrenamiento" },
 ];
 
 function ClubPage() {
@@ -92,7 +92,7 @@ function ClubPage() {
             <p className="eyebrow text-primary">Dónde entrenamos</p>
             <h2 className="mt-3 text-4xl">En el corazón de Pozuelo</h2>
             <p className="mt-5 text-lg text-muted-foreground">
-              Entrenamos en pabellón cubierto con pistas reglamentarias. Ponemos el material para
+              Entrenamos en el IES Camilo José Cela y en el colegio San Luis de los Franceses, en pistas cubiertas. Ponemos el material para
               las primeras clases: solo necesitas ropa deportiva y zapatillas de interior.
             </p>
             <p className="mt-6 flex items-center gap-2 font-semibold">
