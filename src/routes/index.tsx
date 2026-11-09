@@ -116,8 +116,7 @@ function Index() {
           className="aspect-[4/3] w-full rounded-lg object-cover shadow-card"
         />
         <div>
-          <p className="eyebrow text-primary">Nuestros grupos</p>
-          <Button asChild variant="link" className="mt-3 px-0 text-base font-semibold uppercase tracking-wider">
+          <Button asChild variant="link" className="px-0 text-base font-semibold uppercase tracking-wider">
             <Link to="/horarios">
               Consulta los horarios <ArrowRight />
             </Link>
