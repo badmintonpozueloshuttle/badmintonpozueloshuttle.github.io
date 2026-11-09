@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { CheckCircle2, Loader2, Send } from "lucide-react";
+import { CheckCircle2, Instagram, Loader2, Send } from "lucide-react";
 import { useState, type FormEvent } from "react";
 import { toast } from "sonner";
 
@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { LEVEL_OPTIONS } from "@/lib/club-data";
+import { INSTAGRAM_HANDLE, INSTAGRAM_URL, LEVEL_OPTIONS } from "@/lib/club-data";
 import { infoRequestSchema } from "@/lib/info-request";
 import { submitInfoRequest } from "@/lib/info-request.functions";
 
@@ -94,6 +94,18 @@ function ContactoPage() {
               </li>
             ))}
           </ul>
+          <a
+            href={INSTAGRAM_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-10 inline-flex items-center gap-3 rounded-lg border border-ink-foreground/15 px-5 py-4 transition-colors hover:border-primary"
+          >
+            <Instagram className="h-6 w-6 text-primary" />
+            <span>
+              <span className="block text-sm text-ink-muted">Síguenos en Instagram</span>
+              <span className="block font-semibold">{INSTAGRAM_HANDLE}</span>
+            </span>
+          </a>
         </div>
 
         <div className="rounded-lg bg-card p-7 text-card-foreground shadow-card sm:p-9">

@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
-import { MapPin, Mail } from "lucide-react";
+import { Instagram, MapPin, Mail } from "lucide-react";
 
-import { CLUB_LOCATION, CLUB_NAME } from "@/lib/club-data";
+import { CLUB_LOCATION, CLUB_NAME, INSTAGRAM_HANDLE, INSTAGRAM_URL } from "@/lib/club-data";
 import logo from "@/assets/logo-shuttle-pozuelo.png.asset.json";
 
 export function SiteFooter() {
@@ -35,6 +35,7 @@ export function SiteFooter() {
           <ul className="mt-4 space-y-3 text-ink-muted">
             <li className="flex gap-2"><MapPin className="mt-0.5 h-4 w-4 shrink-0 text-primary" />{CLUB_LOCATION}</li>
             <li className="flex gap-2"><Mail className="mt-0.5 h-4 w-4 shrink-0 text-primary" /><Link to="/contacto" className="hover:text-ink-foreground">Escríbenos desde el formulario</Link></li>
+            <li className="flex gap-2"><Instagram className="mt-0.5 h-4 w-4 shrink-0 text-primary" /><a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="hover:text-ink-foreground">{INSTAGRAM_HANDLE}</a></li>
           </ul>
         </div>
       </div>

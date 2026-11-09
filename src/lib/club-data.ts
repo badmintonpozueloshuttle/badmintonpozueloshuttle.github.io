@@ -1,5 +1,7 @@
 export const CLUB_NAME = "Badminton Pozuelo Shuttle";
 export const CLUB_LOCATION = "Pozuelo de Alarcón, Madrid";
+export const INSTAGRAM_HANDLE = "@badmintonpozueloshuttle";
+export const INSTAGRAM_URL = "https://www.instagram.com/badmintonpozueloshuttle";
 
 export const WEEK_DAYS = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"] as const;
 
