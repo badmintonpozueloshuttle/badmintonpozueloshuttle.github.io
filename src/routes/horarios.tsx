@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Clock, MapPin } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { TRAINING_GROUPS, WEEK_DAYS, WEEKLY_SESSIONS } from "@/lib/club-data";
+import { WEEK_DAYS, WEEKLY_SESSIONS } from "@/lib/club-data";
 
 export const Route = createFileRoute("/horarios")({
   head: () => ({
@@ -40,7 +40,7 @@ function HorariosPage() {
       </section>
 
       <section className="mx-auto max-w-6xl px-5 py-16">
-        <h2 className="text-3xl">Semana tipo</h2>
+        <h2 className="text-3xl">Grupos</h2>
         <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
           {WEEK_DAYS.map((day) => {
             const sessions = WEEKLY_SESSIONS.filter((s) => s.day === day).sort((a, b) =>
@@ -71,29 +71,12 @@ function HorariosPage() {
       </section>
 
       <section className="bg-muted">
-        <div className="mx-auto max-w-6xl px-5 py-16">
-          <h2 className="text-3xl">Grupos</h2>
-          <p className="mt-3 max-w-2xl text-muted-foreground">
-            Escríbenos y te diremos qué horario encaja con tu edad y tu nivel.
-          </p>
-          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {TRAINING_GROUPS.map((g) => (
-              <article key={g.id} className="rounded-lg border bg-card p-6 shadow-card">
-                <h3 className="text-xl">{g.name}</h3>
-                <p className="mt-1 text-muted-foreground">{g.audience}</p>
-                <span className="mt-4 inline-block rounded-md bg-accent px-3 py-1 text-xs font-semibold uppercase tracking-wider text-accent-foreground">
-                  {g.level}
-                </span>
-              </article>
-            ))}
-          </div>
-          <div className="mt-12 text-center">
-            <Button asChild variant="hero" size="xl">
-              <Link to="/contacto">
-                Reserva tu clase de prueba <ArrowRight />
-              </Link>
-            </Button>
-          </div>
+        <div className="mx-auto max-w-6xl px-5 py-16 text-center">
+          <Button asChild variant="hero" size="xl">
+            <Link to="/contacto">
+              Reserva tu clase de prueba <ArrowRight />
+            </Link>
+          </Button>
         </div>
       </section>
     </>
