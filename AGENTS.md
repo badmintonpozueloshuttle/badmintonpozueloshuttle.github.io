@@ -28,3 +28,8 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project rules
+
+- Club content (training groups, schedules, level options) lives in `src/lib/club-data.ts`; pages read from it so schedule changes happen in one place.
+- Info-request form: validation schema in `src/lib/info-request.ts` is shared by the browser and the server function; inserts go through a server function with the admin client, and the `info_requests` table has no anon/authenticated policies so visitors can never read submissions.
