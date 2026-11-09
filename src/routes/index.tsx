@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, CalendarClock, Trophy, Users } from "lucide-react";
 
-import heroImg from "@/assets/hero-badminton.jpg";
+import heroImg from "@/assets/pista-entrenamiento-pozuelo.jpg.asset.json";
 import trainingImg from "@/assets/club-training.jpg";
 import { Button } from "@/components/ui/button";
 import { TRAINING_GROUPS } from "@/lib/club-data";
@@ -56,11 +56,11 @@ function Index() {
     <>
       <section className="relative isolate overflow-hidden bg-ink text-ink-foreground">
         <img
-          src={heroImg}
-          alt="Jugador de bádminton saltando para hacer un remate"
+          src={heroImg.url}
+          alt="Jugadores del club entrenando en la pista del pabellón"
           width={1920}
-          height={1088}
-          className="absolute inset-0 -z-20 h-full w-full -scale-x-100 object-cover object-[35%_center]"
+          height={1280}
+          className="absolute inset-0 -z-20 h-full w-full object-cover object-[70%_center]"
         />
         <div className="bg-hero-overlay absolute inset-0 -z-10" />
         <div className="mx-auto flex min-h-[min(80vh,760px)] max-w-6xl flex-col justify-center px-5 py-24">
