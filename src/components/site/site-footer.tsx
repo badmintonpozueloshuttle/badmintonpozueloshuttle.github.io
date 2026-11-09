@@ -2,17 +2,22 @@ import { Link } from "@tanstack/react-router";
 import { MapPin, Mail } from "lucide-react";
 
 import { CLUB_LOCATION, CLUB_NAME } from "@/lib/club-data";
-import { ShuttleMark } from "./shuttle-mark";
+import logo from "@/assets/logo-shuttle-pozuelo.png.asset.json";
 
 export function SiteFooter() {
   return (
     <footer className="court-lines bg-ink text-ink-foreground">
       <div className="mx-auto grid max-w-6xl gap-10 px-5 py-14 md:grid-cols-3">
         <div>
-          <div className="flex items-center gap-2.5">
-            <ShuttleMark className="h-8 w-8 text-primary" />
-            <span className="font-display uppercase">{CLUB_NAME}</span>
-          </div>
+          <img
+            src={logo.url}
+            alt={`Logo de ${CLUB_NAME}`}
+            width={480}
+            height={366}
+            loading="lazy"
+            className="h-24 w-auto mix-blend-lighten"
+          />
+          <p className="mt-3 font-display uppercase">{CLUB_NAME}</p>
           <p className="mt-4 max-w-xs text-ink-muted">
             Club de bádminton en Pozuelo para todas las edades y niveles.
           </p>

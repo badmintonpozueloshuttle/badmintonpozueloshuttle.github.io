@@ -3,7 +3,7 @@ import { Menu, X } from "lucide-react";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
-import { ShuttleMark } from "./shuttle-mark";
+import logo from "@/assets/logo-shuttle-pozuelo.png.asset.json";
 
 const NAV = [
   { to: "/", label: "Inicio" },
@@ -16,14 +16,17 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-ink-foreground/10 bg-ink/95 text-ink-foreground backdrop-blur">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5">
+    <header className="sticky top-0 z-40 border-b border-ink-foreground/10 bg-ink text-ink-foreground">
+      <div className="mx-auto flex h-20 max-w-6xl items-center justify-between px-5">
         <Link to="/" className="flex items-center gap-2.5" onClick={() => setOpen(false)}>
-          <ShuttleMark className="h-8 w-8 text-primary" />
-          <span className="font-display text-sm uppercase leading-none tracking-wide">
-            Badminton Pozuelo
-            <span className="block text-primary">Shuttle</span>
-          </span>
+          <img
+            src={logo.url}
+            alt="Logo de Badminton Pozuelo Shuttle"
+            width={480}
+            height={366}
+            className="h-16 w-auto mix-blend-lighten"
+          />
+          <span className="sr-only">Badminton Pozuelo Shuttle</span>
         </Link>
 
         <nav className="hidden items-center gap-1 md:flex">
