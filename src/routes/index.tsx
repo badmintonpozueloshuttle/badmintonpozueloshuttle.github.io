@@ -83,7 +83,7 @@ function Index() {
         </div>
       </section>
 
-      <section className="mx-auto -mt-14 max-w-6xl px-5">
+      <section className="mx-auto -mt-16 max-w-6xl px-5 pb-8">
         <div className="grid gap-5 md:grid-cols-3">
           {FEATURES.map((f) => (
             <Link
