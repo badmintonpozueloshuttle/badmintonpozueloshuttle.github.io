@@ -22,7 +22,7 @@ export function SiteHeader() {
           <ShuttleMark className="h-8 w-8 text-primary" />
           <span className="font-display text-sm uppercase leading-none tracking-wide">
             Badminton Pozuelo
-            <span className="block text-primary">Shutte</span>
+            <span className="block text-primary">Shuttle</span>
           </span>
         </Link>
 

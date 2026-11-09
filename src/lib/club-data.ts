@@ -1,4 +1,4 @@
-export const CLUB_NAME = "Badminton Pozuelo Shutte";
+export const CLUB_NAME = "Badminton Pozuelo Shuttle";
 export const CLUB_LOCATION = "Pozuelo de Alarcón, Madrid";
 
 export type TrainingGroup = {

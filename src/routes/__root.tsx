@@ -84,9 +84,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Badminton Pozuelo Shutte" },
+      { title: "Badminton Pozuelo Shuttle" },
       { name: "description", content: "Club de bádminton en Pozuelo de Alarcón para todas las edades y niveles." },
-      { property: "og:title", content: "Badminton Pozuelo Shutte" },
+      { property: "og:title", content: "Badminton Pozuelo Shuttle" },
       { property: "og:description", content: "Club de bádminton en Pozuelo de Alarcón para todas las edades y niveles." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

@@ -8,13 +8,13 @@ import { CLUB_LOCATION } from "@/lib/club-data";
 export const Route = createFileRoute("/club")({
   head: () => ({
     meta: [
-      { title: "El club · Badminton Pozuelo Shutte" },
+      { title: "El club · Badminton Pozuelo Shuttle" },
       {
         name: "description",
         content:
-          "Conoce Badminton Pozuelo Shutte: nuestra historia, valores, entrenadores y dónde entrenamos en Pozuelo de Alarcón.",
+          "Conoce Badminton Pozuelo Shuttle: nuestra historia, valores, entrenadores y dónde entrenamos en Pozuelo de Alarcón.",
       },
-      { property: "og:title", content: "El club · Badminton Pozuelo Shutte" },
+      { property: "og:title", content: "El club · Badminton Pozuelo Shuttle" },
       {
         property: "og:description",
         content: "Historia, valores y equipo técnico del club de bádminton de Pozuelo.",
@@ -58,7 +58,7 @@ function ClubPage() {
           <p className="eyebrow text-primary">El club</p>
           <h1 className="mt-4 max-w-3xl text-4xl sm:text-6xl">Bádminton con alma de barrio</h1>
           <p className="mt-6 max-w-2xl text-lg text-ink-muted">
-            Badminton Pozuelo Shutte nace para acercar el bádminton a todo Pozuelo. Entrenamos con
+            Badminton Pozuelo Shuttle nace para acercar el bádminton a todo Pozuelo. Entrenamos con
             seriedad, pero sobre todo disfrutamos de un deporte rápido, técnico y muy divertido.
           </p>
           <dl className="mt-12 grid max-w-2xl grid-cols-3 gap-6 border-t border-ink-foreground/15 pt-8">

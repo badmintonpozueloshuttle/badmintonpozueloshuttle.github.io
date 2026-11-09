@@ -7,13 +7,13 @@ import { TRAINING_GROUPS, WEEK_DAYS } from "@/lib/club-data";
 export const Route = createFileRoute("/horarios")({
   head: () => ({
     meta: [
-      { title: "Horarios de entrenamiento · Badminton Pozuelo Shutte" },
+      { title: "Horarios de entrenamiento · Badminton Pozuelo Shuttle" },
       {
         name: "description",
         content:
           "Horarios semanales de los grupos de bádminton: escuela infantil, juvenil, adultos y competición en Pozuelo.",
       },
-      { property: "og:title", content: "Horarios de entrenamiento · Badminton Pozuelo Shutte" },
+      { property: "og:title", content: "Horarios de entrenamiento · Badminton Pozuelo Shuttle" },
       {
         property: "og:description",
         content: "Consulta qué días y a qué hora entrena cada grupo del club.",

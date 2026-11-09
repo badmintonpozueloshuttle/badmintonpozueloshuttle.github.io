@@ -15,13 +15,13 @@ import { submitInfoRequest } from "@/lib/info-request.functions";
 export const Route = createFileRoute("/contacto")({
   head: () => ({
     meta: [
-      { title: "Solicitar información · Badminton Pozuelo Shutte" },
+      { title: "Solicitar información · Badminton Pozuelo Shuttle" },
       {
         name: "description",
         content:
-          "Pide información sobre el club, los grupos y las clases de prueba de Badminton Pozuelo Shutte.",
+          "Pide información sobre el club, los grupos y las clases de prueba de Badminton Pozuelo Shuttle.",
       },
-      { property: "og:title", content: "Solicitar información · Badminton Pozuelo Shutte" },
+      { property: "og:title", content: "Solicitar información · Badminton Pozuelo Shuttle" },
       {
         property: "og:description",
         content: "Escríbenos y te contamos cómo empezar a jugar al bádminton en Pozuelo.",

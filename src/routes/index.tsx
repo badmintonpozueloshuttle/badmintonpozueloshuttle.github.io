@@ -9,13 +9,13 @@ import { TRAINING_GROUPS } from "@/lib/club-data";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Badminton Pozuelo Shutte · Club de bádminton en Pozuelo" },
+      { title: "Badminton Pozuelo Shuttle · Club de bádminton en Pozuelo" },
       {
         name: "description",
         content:
           "Entrena bádminton en Pozuelo de Alarcón: escuela infantil, juvenil, adultos y competición. Consulta horarios y pide información.",
       },
-      { property: "og:title", content: "Badminton Pozuelo Shutte" },
+      { property: "og:title", content: "Badminton Pozuelo Shuttle" },
       {
         property: "og:description",
         content: "Club de bádminton en Pozuelo para todas las edades y niveles.",
@@ -66,7 +66,7 @@ function Index() {
         <div className="mx-auto flex min-h-[min(80vh,760px)] max-w-6xl flex-col justify-center px-5 py-24">
           <p className="eyebrow animate-rise text-primary">Club de bádminton · Pozuelo de Alarcón</p>
           <h1 className="animate-rise mt-5 max-w-3xl text-[2.6rem] [animation-delay:80ms] sm:text-7xl">
-            Badminton Pozuelo <span className="text-primary">Shutte</span>
+            Badminton Pozuelo <span className="text-primary">Shuttle</span>
           </h1>
           <p className="animate-rise mt-6 max-w-xl text-lg text-ink-muted [animation-delay:160ms]">
             Aprende, entrena y compite en un club cercano. Grupos para niños, jóvenes y adultos,
