@@ -4,7 +4,6 @@ import { ArrowRight, CalendarClock, Trophy, Users } from "lucide-react";
 import heroImg from "@/assets/pista-entrenamiento-pozuelo.jpg.asset.json";
 import trainingImg from "@/assets/club-training.jpg";
 import { Button } from "@/components/ui/button";
-import { TRAINING_GROUPS } from "@/lib/club-data";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -31,7 +30,7 @@ const FEATURES = [
   {
     icon: Users,
     title: "Para todas las edades",
-    text: "Desde los 6 años hasta veteranos. Grupos por edad y nivel.",
+    text: "Bádminton para todas las edades, desde peques hasta veteranos.",
     to: "/club" as const,
     cta: "Conoce el club",
   },
@@ -119,14 +118,6 @@ function Index() {
         <div>
           <p className="eyebrow text-primary">Nuestros grupos</p>
           <h2 className="mt-3 text-4xl">Encuentra tu grupo</h2>
-          <ul className="mt-8 divide-y border-y">
-            {TRAINING_GROUPS.map((g) => (
-              <li key={g.id} className="flex items-baseline justify-between gap-4 py-4">
-                <span className="font-display uppercase">{g.name}</span>
-                <span className="text-right text-muted-foreground">{g.audience}</span>
-              </li>
-            ))}
-          </ul>
           <Button asChild variant="link" className="mt-6 px-0 text-base font-semibold uppercase tracking-wider">
             <Link to="/horarios">
               Consulta los horarios <ArrowRight />

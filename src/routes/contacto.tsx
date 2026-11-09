@@ -166,7 +166,7 @@ function ContactoPage() {
                   value={values.message}
                   onChange={(e) => update("message")(e.target.value)}
                   maxLength={1000}
-                  placeholder="Ej.: Me gustaría apuntar a mi hijo de 9 años al grupo infantil."
+                  placeholder="Ej.: Me gustaría probar una clase y saber qué horario me encaja."
                 />
               </Field>
               <Button type="submit" variant="hero" size="xl" className="w-full" disabled={sending}>

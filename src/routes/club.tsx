@@ -46,7 +46,7 @@ const VALUES = [
 
 const STATS = [
   { value: "4", label: "Grupos de entrenamiento" },
-  { value: "6+", label: "Años de edad mínima" },
+  { value: "Todas", label: "Las edades son bienvenidas" },
   { value: String(TRAINING_DAYS_COUNT), label: "Días de entrenamiento" },
 ];
 

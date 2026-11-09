@@ -1,40 +1,6 @@
 export const CLUB_NAME = "Badminton Pozuelo Shuttle";
 export const CLUB_LOCATION = "Pozuelo de Alarcón, Madrid";
 
-export type TrainingGroup = {
-  id: string;
-  name: string;
-  audience: string;
-  level: string;
-};
-
-export const TRAINING_GROUPS: TrainingGroup[] = [
-  {
-    id: "escuela",
-    name: "Escuela infantil",
-    audience: "6 a 11 años",
-    level: "Iniciación",
-  },
-  {
-    id: "juvenil",
-    name: "Juvenil",
-    audience: "12 a 17 años",
-    level: "Iniciación y perfeccionamiento",
-  },
-  {
-    id: "adultos",
-    name: "Adultos",
-    audience: "Mayores de 18",
-    level: "Iniciación e intermedio",
-  },
-  {
-    id: "competicion",
-    name: "Competición",
-    audience: "Jugadores federados",
-    level: "Avanzado",
-  },
-];
-
 export const WEEK_DAYS = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"] as const;
 
 export type WeekDay = (typeof WEEK_DAYS)[number];
