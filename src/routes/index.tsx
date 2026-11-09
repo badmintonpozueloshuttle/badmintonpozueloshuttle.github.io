@@ -2,7 +2,6 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, CalendarClock, Trophy, Users } from "lucide-react";
 
 import heroImg from "@/assets/pista-entrenamiento-pozuelo.jpg.asset.json";
-import trainingImg from "@/assets/club-training.jpg";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/")({
@@ -103,24 +102,6 @@ function Index() {
               </span>
             </Link>
           ))}
-        </div>
-      </section>
-
-      <section className="mx-auto grid max-w-6xl items-center gap-12 px-5 py-24 md:grid-cols-2">
-        <img
-          src={trainingImg}
-          alt="Entrenador explicando un ejercicio a un grupo del club"
-          width={1280}
-          height={960}
-          loading="lazy"
-          className="aspect-[4/3] w-full rounded-lg object-cover shadow-card"
-        />
-        <div>
-          <Button asChild variant="link" className="px-0 text-base font-semibold uppercase tracking-wider">
-            <Link to="/horarios">
-              Consulta los horarios <ArrowRight />
-            </Link>
-          </Button>
         </div>
       </section>
 
