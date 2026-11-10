@@ -33,3 +33,4 @@ use the editor.
 
 - Club content (training groups, schedules, level options) lives in `src/lib/club-data.ts`; pages read from it so schedule changes happen in one place.
 - Info-request form: validation schema in `src/lib/info-request.ts` is shared by the browser and the server function; inserts go through a server function with the admin client, and the `info_requests` table has no anon/authenticated policies so visitors can never read submissions.
+- GitHub Pages: `docs/` is a generated static copy of the site (Pages has no server); never edit it by hand — rerun `python3 scripts/export_github_pages.py` against the running dev server after any page change. Its contact form posts to FormSubmit instead of the server function.
