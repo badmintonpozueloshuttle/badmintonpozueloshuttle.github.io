@@ -56,8 +56,7 @@ function ClubPage() {
       <section className="court-lines bg-ink text-ink-foreground">
         <div className="mx-auto max-w-6xl px-5 py-20">
           <p className="eyebrow text-primary">El club</p>
-          <h1 className="mt-4 max-w-3xl text-4xl sm:text-6xl">Bádminton con alma de barrio</h1>
-          <p className="mt-6 max-w-2xl text-lg text-ink-muted">
+          <p className="mt-4 max-w-2xl text-lg text-ink-muted">
             Pozuelo Shuttle nace para acercar el bádminton a todo Pozuelo. Es un proyecto donde la pasión por el bádminton se convierte en comunidad, formando desde la base a jugadores de todas las edades, pero sobre todo disfrutamos de un deporte rápido, técnico y muy divertido.
           </p>
           <dl className="mt-12 grid max-w-2xl grid-cols-3 gap-6 border-t border-ink-foreground/15 pt-8">
