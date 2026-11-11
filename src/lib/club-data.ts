@@ -27,6 +27,41 @@ export const WEEKLY_SESSIONS: TrainingSession[] = [
 
 export const TRAINING_DAYS_COUNT = new Set(WEEKLY_SESSIONS.map((s) => s.day)).size;
 
+export type Venue = {
+  name: string;
+  address: string;
+  lat: number;
+  lng: number;
+  placeId: string;
+};
+
+/**
+ * Both training schools, with coordinates resolved through the Google Maps
+ * Geocoding API so the club page can drop a marker on each one.
+ */
+export const VENUES_LOCATIONS: Venue[] = [
+  {
+    name: VENUES.camiloJoseCela,
+    address: "C. Islas Cíes, 53, 28223 Pozuelo de Alarcón, Madrid",
+    lat: 40.4391176,
+    lng: -3.8196698,
+    placeId: "ChIJXeAq6nmGQQ0RC-QsRlOMho0",
+  },
+  {
+    name: VENUES.sanLuis,
+    address: "C. de Portugalete, 1, 28223 Pozuelo de Alarcón, Madrid",
+    lat: 40.4364338,
+    lng: -3.8111148,
+    placeId: "ChIJzWLe7m6GQQ0RJsxyR3tiLF8",
+  },
+];
+
+/** Deep link that opens the venue in the Google Maps app / website. */
+export function googleMapsUrl(venue: Venue): string {
+  const query = encodeURIComponent(`${venue.lat},${venue.lng}`);
+  return `https://www.google.com/maps/search/?api=1&query=${query}&query_place_id=${venue.placeId}`;
+}
+
 export const LEVEL_OPTIONS = [
   "Nunca he jugado",
   "Nivel iniciación",

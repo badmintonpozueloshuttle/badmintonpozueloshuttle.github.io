@@ -1,7 +1,8 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { ClientOnly, createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, GraduationCap, HeartHandshake, Medal, MapPin } from "lucide-react";
 
 import teamImg from "@/assets/equipo-shuttle-pozuelo.jpg.asset.json";
+import { VenuesMap } from "@/components/site/venue-map";
 import { Button } from "@/components/ui/button";
 import { CLUB_LOCATION, TRAINING_DAYS_COUNT } from "@/lib/club-data";
 
@@ -85,31 +86,41 @@ function ClubPage() {
       </section>
 
       <section className="bg-muted">
-        <div className="mx-auto grid max-w-6xl items-center gap-12 px-5 py-20 md:grid-cols-2">
-          <div>
-            <p className="eyebrow text-primary">Dónde entrenamos</p>
-            <h2 className="mt-3 text-4xl">En el corazón de Pozuelo</h2>
-            <p className="mt-5 text-lg text-muted-foreground">
-              Entrenamos en el IES Camilo José Cela y en el colegio San Luis de los Franceses, en pistas cubiertas. Ponemos el material para
-              las primeras clases: solo necesitas ropa deportiva y zapatillas de interior.
-            </p>
-            <p className="mt-6 flex items-center gap-2 font-semibold">
-              <MapPin className="h-5 w-5 text-primary" /> {CLUB_LOCATION}
-            </p>
-            <Button asChild variant="hero" size="xl" className="mt-8">
-              <Link to="/contacto">
-                Quiero apuntarme <ArrowRight />
-              </Link>
-            </Button>
+        <div className="mx-auto max-w-6xl px-5 py-20">
+          <div className="grid items-center gap-12 md:grid-cols-2">
+            <div>
+              <p className="eyebrow text-primary">Dónde entrenamos</p>
+              <h2 className="mt-3 text-4xl">En el corazón de Pozuelo</h2>
+              <p className="mt-5 text-lg text-muted-foreground">
+                Entrenamos en el IES Camilo José Cela y en el colegio San Luis de los Franceses, en pistas cubiertas. Ponemos el material para
+                las primeras clases: solo necesitas ropa deportiva y zapatillas de interior.
+              </p>
+              <p className="mt-6 flex items-center gap-2 font-semibold">
+                <MapPin className="h-5 w-5 text-primary" /> {CLUB_LOCATION}
+              </p>
+              <Button asChild variant="hero" size="xl" className="mt-8">
+                <Link to="/contacto">
+                  Quiero apuntarme <ArrowRight />
+                </Link>
+              </Button>
+            </div>
+            <img
+              src={teamImg.url}
+              alt="Jugadores del club posando con la bandera de Shuttle Pozuelo"
+              width={1920}
+              height={1440}
+              loading="lazy"
+              className="aspect-[4/3] w-full rounded-lg object-cover shadow-card"
+            />
           </div>
-          <img
-            src={teamImg.url}
-            alt="Jugadores del club posando con la bandera de Shuttle Pozuelo"
-            width={1920}
-            height={1440}
-            loading="lazy"
-            className="aspect-[4/3] w-full rounded-lg object-cover shadow-card"
-          />
+
+          <div className="mt-14">
+            <ClientOnly
+              fallback={<div className="h-[340px] w-full rounded-lg border bg-background sm:h-[420px]" aria-hidden />}
+            >
+              <VenuesMap />
+            </ClientOnly>
+          </div>
         </div>
       </section>
     </>

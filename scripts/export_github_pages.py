@@ -8,7 +8,9 @@ import json
 import re
 import shutil
 import urllib.request
+from html import escape
 from pathlib import Path
+from urllib.parse import parse_qs, urlparse
 
 from playwright.sync_api import sync_playwright
 
@@ -36,6 +38,8 @@ CLEAN_JS = r"""
       if (a.name.startsWith("data-lov") || a.name.startsWith("data-tsd") || a.name === "data-component-path") el.removeAttribute(a.name);
     }
   });
+  const slot = doc.querySelector("[data-venues-map]");
+  if (slot) slot.outerHTML = __VENUE_MAP_HTML__;
   const link = document.createElement("link");
   link.rel = "stylesheet";
   link.href = "styles.css";
@@ -43,6 +47,33 @@ CLEAN_JS = r"""
   return { html: "<!DOCTYPE html>\n" + doc.outerHTML, css };
 }
 """
+
+# Google Maps sin clave: GitHub Pages no puede ejecutar la API de Maps, así que
+# cada pista se incrusta como un mapa embebido con el enlace ya resuelto por el club.
+VENUES_JS = """() => [...document.querySelectorAll('[data-venue-link]')].map((a) => ({
+  href: a.getAttribute('href'),
+  name: a.querySelector('[data-venue-name]') ? a.querySelector('[data-venue-name]').textContent.trim() : 'Pista',
+}))"""
+
+
+def venue_map_html(venues: list) -> str:
+    iframes = []
+    for venue in venues:
+        query = parse_qs(urlparse(venue["href"]).query).get("query", [""])[0]
+        if not query:
+            continue
+        title = escape(f'{venue["name"]} en Google Maps')
+        iframes.append(
+            f'<iframe title="{title}" src="https://www.google.com/maps?q={query}&z=16&output=embed" '
+            'style="width:100%;height:320px;border:0;border-radius:8px" loading="lazy"></iframe>'
+        )
+    if not iframes:
+        return ""
+    return (
+        '<div style="display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))">'
+        + "".join(iframes)
+        + "</div>"
+    )
 
 MENU_JS = """
 <script>
@@ -199,7 +230,10 @@ def main():
                     }"""
                 )
                 icon = page.evaluate("() => window.__sentIcon")
-            result = page.evaluate(CLEAN_JS)
+            map_html = ""
+            if route == "/club":
+                map_html = venue_map_html(page.evaluate(VENUES_JS))
+            result = page.evaluate(CLEAN_JS.replace("__VENUE_MAP_HTML__", json.dumps(map_html)))
             html, css = result["html"], result["css"]
 
             # Menú móvil
