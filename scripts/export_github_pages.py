@@ -8,7 +8,6 @@ import json
 import re
 import shutil
 import urllib.request
-from html import escape
 from pathlib import Path
 from urllib.parse import parse_qs, urlparse
 
@@ -39,7 +38,10 @@ CLEAN_JS = r"""
     }
   });
   const slot = doc.querySelector("[data-venues-map]");
-  if (slot) slot.outerHTML = __VENUE_MAP_HTML__;
+  if (slot) {
+    [...slot.parentNode.children].forEach((c) => { if (c !== slot && c.tagName === "P") c.remove(); });
+    slot.outerHTML = __VENUE_MAP_HTML__;
+  }
   const link = document.createElement("link");
   link.rel = "stylesheet";
   link.href = "styles.css";
@@ -48,32 +50,68 @@ CLEAN_JS = r"""
 }
 """
 
-# Google Maps sin clave: GitHub Pages no puede ejecutar la API de Maps, así que
-# cada pista se incrusta como un mapa embebido con el enlace ya resuelto por el club.
+# El mapa embebido de Google sin clave solo admite un punto, así que en la copia
+# estática se dibuja un único mapa con las dos pistas: teselas libres de
+# OpenStreetMap + la librería Leaflet (sin clave, sin servidor, sin facturas).
 VENUES_JS = """() => [...document.querySelectorAll('[data-venue-link]')].map((a) => ({
   href: a.getAttribute('href'),
   name: a.querySelector('[data-venue-name]') ? a.querySelector('[data-venue-name]').textContent.trim() : 'Pista',
 }))"""
 
+LEAFLET_VERSION = "1.9.4"
+LEAFLET_DIST = f"https://unpkg.com/leaflet@{LEAFLET_VERSION}/dist"
 
-def venue_map_html(venues: list) -> str:
-    iframes = []
+
+def venue_list(venues: list) -> list:
+    """Añade a cada pista sus coordenadas, leídas del enlace de Google Maps."""
+    out = []
     for venue in venues:
         query = parse_qs(urlparse(venue["href"]).query).get("query", [""])[0]
-        if not query:
+        try:
+            lat, lng = (float(part) for part in query.split(","))
+        except ValueError:
             continue
-        title = escape(f'{venue["name"]} en Google Maps')
-        iframes.append(
-            f'<iframe title="{title}" src="https://www.google.com/maps?q={query}&z=16&output=embed" '
-            'style="width:100%;height:320px;border:0;border-radius:8px" loading="lazy"></iframe>'
-        )
-    if not iframes:
+        out.append({"name": venue["name"], "lat": lat, "lng": lng, "href": venue["href"]})
+    return out
+
+
+def venue_map_html(venues: list) -> str:
+    if not venues:
         return ""
-    return (
-        '<div style="display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))">'
-        + "".join(iframes)
-        + "</div>"
-    )
+    return '<div data-venues-one-map style="height:100%;width:100%"></div>'
+
+
+# Un solo mapa con las dos pistas numeradas; cada chincheta abre Google Maps.
+VENUES_MAP_JS = """
+<script src="assets/leaflet.js"></script>
+<script>
+(function () {
+  var el = document.querySelector("[data-venues-one-map]");
+  if (!el || !window.L) return;
+  var VENUES = __VENUES__;
+  var map = L.map(el, { scrollWheelZoom: false });
+  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 19,
+    attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+  }).addTo(map);
+  var pts = [];
+  VENUES.forEach(function (v, i) {
+    pts.push([v.lat, v.lng]);
+    var icon = L.divIcon({
+      className: "",
+      html: '<div style="width:28px;height:28px;border-radius:50%;background:#1b913d;color:#fff;'
+        + 'border:2px solid #fff;box-shadow:0 1px 5px rgba(0,0,0,.45);display:flex;'
+        + 'align-items:center;justify-content:center;font:bold 14px sans-serif">' + (i + 1) + "</div>",
+      iconSize: [28, 28],
+      iconAnchor: [14, 14]
+    });
+    L.marker([v.lat, v.lng], { icon: icon, title: v.name }).addTo(map)
+      .bindPopup("<b>" + v.name + "</b><br><a href=\\"" + v.href + "\\" target=\\"_blank\\" rel=\\"noopener noreferrer\\">Abrir en Google Maps</a>");
+  });
+  map.fitBounds(L.latLngBounds(pts).pad(0.35));
+})();
+</script>
+"""
 
 MENU_JS = """
 <script>
@@ -189,6 +227,12 @@ def download(url: str, images: dict) -> str:
     return images[url]
 
 
+def fetch(url: str) -> bytes:
+    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+    with urllib.request.urlopen(req) as r:
+        return r.read()
+
+
 def rewrite_links(html: str) -> str:
     def repl(m):
         path, frag = m.group(1), m.group(2) or ""
@@ -205,6 +249,11 @@ def main():
     OUT.mkdir()
     images: dict = {}
     css = ""
+    # Leaflet se guarda dentro de la copia: GitHub Pages no puede ejecutar la API
+    # de Maps, pero sí dibujar un mapa con las dos pistas usando teselas libres.
+    (OUT / "assets").mkdir(parents=True, exist_ok=True)
+    (OUT / "assets" / "leaflet.js").write_bytes(fetch(f"{LEAFLET_DIST}/leaflet.js"))
+    leaflet_css = fetch(f"{LEAFLET_DIST}/leaflet.css").decode("utf-8")
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
 
@@ -231,8 +280,10 @@ def main():
                 )
                 icon = page.evaluate("() => window.__sentIcon")
             map_html = ""
+            venues_data: list = []
             if route == "/club":
-                map_html = venue_map_html(page.evaluate(VENUES_JS))
+                venues_data = venue_list(page.evaluate(VENUES_JS))
+                map_html = venue_map_html(venues_data)
             result = page.evaluate(CLEAN_JS.replace("__VENUE_MAP_HTML__", json.dumps(map_html)))
             html, css = result["html"], result["css"]
 
@@ -263,6 +314,8 @@ def main():
                 scripts += FORM_JS.replace("__LEVELS__", json.dumps(levels, ensure_ascii=False)).replace(
                     "__EMAIL__", FORM_EMAIL
                 )
+            if route == "/club" and venues_data:
+                scripts += VENUES_MAP_JS.replace("__VENUES__", json.dumps(venues_data, ensure_ascii=False))
             html = html.replace("</body>", scripts + "</body>", 1)
             html = re.sub(r' data-tsd-source="[^"]*"', "", html)
             (OUT / filename).write_text(html, encoding="utf-8")
@@ -272,7 +325,7 @@ def main():
     for url in set(re.findall(r'url\\("?(https?://[^")]+)"?\\)', css)):
         if "fonts.g" not in url:
             css = css.replace(url, download(url, images).replace("assets/", "assets/"))
-    (OUT / "styles.css").write_text(css, encoding="utf-8")
+    (OUT / "styles.css").write_text(css + "\n" + leaflet_css, encoding="utf-8")
     shutil.copy(ROOT / "public" / "favicon.png", OUT / "favicon.png")
     (OUT / ".nojekyll").write_text("")
     print("imágenes:", list(images.values()))
